@@ -3,6 +3,21 @@ from random import choice, randint, choices
 from collections import Counter
 import matplotlib.pyplot as plt
 import pickle
+import csv
+
+reader = csv.reader(open("mmascii.csv"), delimiter="\t", quotechar=None)
+unicode = {row[1].strip():row[0].strip() for row in reader}
+print(unicode)
+
+def convert(stat):
+    result = ""
+    for tok in stat:
+        if tok in unicode:
+            result += unicode[tok] + " "
+        else:
+            result += tok + " "
+
+    return result[:-1]
 
 mm = MM()
 
@@ -57,7 +72,7 @@ for i in range(10000000):
         continue
 
     if result[0] == "|-":
-        print("proved", stat, " ".join(result))
+        print("proved", stat, convert(result))#" ".join(result))
         #mm.labels[label] = ('$p', mm.fs.make_assertion(proof))
         proof = f"{label} $p {' '.join(result)} $= {' '.join(stat)} $."
         mm.consume(proof)
