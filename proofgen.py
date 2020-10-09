@@ -7,7 +7,7 @@ import csv
 
 reader = csv.reader(open("mmascii.csv"), delimiter="\t", quotechar=None)
 unicode = {row[1].strip():row[0].strip() for row in reader}
-print(unicode)
+#print(unicode)
 
 def convert(stat):
     result = ""
@@ -48,9 +48,12 @@ for i in range(10000000):
         generate()
 
     label = f"rgenx-{success}"
-    n = randint(3,10)
+    n = randint(5,30)
     stat = generated[:n]#[weighted_choice() for i in range(randint(3,6))]
     del generated[:n]
+    if len(stat) < n:
+        continue
+
 
 
 
